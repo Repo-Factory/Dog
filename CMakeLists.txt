@@ -15,8 +15,17 @@ link_directories(lib/cpp/${ARCH})
 set(EXTRA_LIBS -pthread libunitree_legged_sdk.so)
 set(CMAKE_CXX_FLAGS "-O3 -fPIC")
 
+include_directories(
+  src/utility/udp_handler/include
+  src/utility/warning/include
+)
+add_library(udp_handler src/utility/udp_handler/udp_handler.cpp)
+add_library(warning     src/utility/warning/warning.cpp)
+
+set(UTILITIES udp_handler warning)
+
 add_executable(walk src/components/walk.cpp)
-target_link_libraries(walk ${EXTRA_LIBS})
+target_link_libraries(walk ${EXTRA_LIBS} ${UTILITIES})
 
 install(TARGETS
   walk

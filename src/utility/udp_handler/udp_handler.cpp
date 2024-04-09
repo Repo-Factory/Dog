@@ -9,19 +9,24 @@ UDP_Handler::UDP_Handler()
 {
     UNITREE_LEGGED_SDK::HighCmd cmd = {0};
     this->udp_handler.InitCmdData(cmd);
-    this->UDPLoop();
 }
 
-const int UPDATE_RATE = 1/100;
-void UDP_Handler::UDPLoop()
-{
-    UNITREE_LEGGED_SDK::LoopFunc loop_udpSend("udp_send", UPDATE_RATE, 3, [&](){this->udp_handler.Send();});
-    UNITREE_LEGGED_SDK::LoopFunc loop_udpRecv("udp_recv", UPDATE_RATE, 3, [&](){this->udp_handler.Recv();});
-    loop_udpSend.start();
-    loop_udpRecv.start();
-}
-
-void UDP_Handler::SetSend(UNITREE_LEGGED_SDK::HighCmd &cmd)
+void UDP_Handler::SetSend(UNITREE_LEGGED_SDK::HighCmd& cmd)
 {
     this->udp_handler.SetSend(cmd);
+}
+
+void UDP_Handler::GetRecv(UNITREE_LEGGED_SDK::HighState& state)
+{
+    this->udp_handler.GetRecv(state);
+}
+
+void UDP_Handler::Send()
+{
+    this->udp_handler.Send();
+}
+
+void UDP_Handler::Recv()
+{
+    this->udp_handler.Recv();
 }

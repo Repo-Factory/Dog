@@ -1,5 +1,5 @@
 #include <iostream>
-#include "warning.hpp"
+#include "warning.h"
 
 void Warning::warning_message()
 {
